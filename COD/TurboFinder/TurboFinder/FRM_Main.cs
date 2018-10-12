@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace TurboFinder
 
         private void InitializeFilters()
         {
-            string[] filters = { "Words", "Dates", "Images", "Music", "Videos"};
+            string[] filters = { "Words", "Dates", "Images", "Music", "Videos", "Extentions"};
             CBX_Filter.Items.AddRange(filters);
 
             // Select the first result by default
@@ -82,7 +83,7 @@ namespace TurboFinder
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    Files = search.Searching(fbd.SelectedPath, TBX_Search.Text);
+                    Files = search.Searching(fbd.SelectedPath, TBX_Search.Text, CBX_Filter.Text);
                 }
 
                 foreach (string item in Files)
@@ -94,7 +95,19 @@ namespace TurboFinder
 
         private void BTN_OpenExplorer_Click(object sender, EventArgs e)
         {
-
+            if (File.Exists(LV_Search.SelectedItems[0].Text))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    Arguments = LV_Search.SelectedItems[0].Text,
+                    FileName = "explorer.exe"
+                };
+                Process.Start(startInfo);
+            }
+            else
+            {
+                MessageBox.Show(string.Format("{0} Directory does not exist!", LV_Search.SelectedItems[0].Text));
+            }
         }
 
         private void BTN_Search_Click(object sender, EventArgs e)

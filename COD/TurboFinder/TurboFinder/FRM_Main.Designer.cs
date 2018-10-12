@@ -39,11 +39,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PNL_Search = new System.Windows.Forms.Panel();
-            this.BTN_Clear = new System.Windows.Forms.Button();
             this.BTN_SearchGo = new System.Windows.Forms.Button();
             this.CBX_Filter = new System.Windows.Forms.ComboBox();
             this.TBX_Search = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BTN_Clear = new System.Windows.Forms.Button();
             this.LV_Search = new System.Windows.Forms.ListView();
             this.PB_Preview = new System.Windows.Forms.PictureBox();
             this.BTN_OpenExplorer = new System.Windows.Forms.Button();
@@ -203,25 +203,6 @@
             this.PNL_Search.Size = new System.Drawing.Size(933, 649);
             this.PNL_Search.TabIndex = 1;
             // 
-            // BTN_Clear
-            // 
-            this.BTN_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTN_Clear.BackColor = System.Drawing.Color.White;
-            this.BTN_Clear.FlatAppearance.BorderSize = 0;
-            this.BTN_Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.BTN_Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.BTN_Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_Clear.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_Clear.ForeColor = System.Drawing.Color.Black;
-            this.BTN_Clear.Location = new System.Drawing.Point(679, 8);
-            this.BTN_Clear.Margin = new System.Windows.Forms.Padding(0);
-            this.BTN_Clear.Name = "BTN_Clear";
-            this.BTN_Clear.Size = new System.Drawing.Size(80, 38);
-            this.BTN_Clear.TabIndex = 7;
-            this.BTN_Clear.Text = "Clear";
-            this.BTN_Clear.UseVisualStyleBackColor = false;
-            this.BTN_Clear.Click += new System.EventHandler(this.BTN_Clear_Click);
-            // 
             // BTN_SearchGo
             // 
             this.BTN_SearchGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -247,9 +228,9 @@
             this.CBX_Filter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBX_Filter.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBX_Filter.FormattingEnabled = true;
-            this.CBX_Filter.Location = new System.Drawing.Point(551, 7);
+            this.CBX_Filter.Location = new System.Drawing.Point(530, 7);
             this.CBX_Filter.Name = "CBX_Filter";
-            this.CBX_Filter.Size = new System.Drawing.Size(121, 38);
+            this.CBX_Filter.Size = new System.Drawing.Size(142, 38);
             this.CBX_Filter.TabIndex = 5;
             // 
             // TBX_Search
@@ -259,7 +240,7 @@
             this.TBX_Search.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBX_Search.Location = new System.Drawing.Point(11, 7);
             this.TBX_Search.Name = "TBX_Search";
-            this.TBX_Search.Size = new System.Drawing.Size(532, 38);
+            this.TBX_Search.Size = new System.Drawing.Size(513, 38);
             this.TBX_Search.TabIndex = 3;
             // 
             // panel1
@@ -273,6 +254,25 @@
             this.panel1.Size = new System.Drawing.Size(933, 56);
             this.panel1.TabIndex = 16;
             // 
+            // BTN_Clear
+            // 
+            this.BTN_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTN_Clear.BackColor = System.Drawing.Color.White;
+            this.BTN_Clear.FlatAppearance.BorderSize = 0;
+            this.BTN_Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.BTN_Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BTN_Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_Clear.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_Clear.ForeColor = System.Drawing.Color.Black;
+            this.BTN_Clear.Location = new System.Drawing.Point(679, 8);
+            this.BTN_Clear.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_Clear.Name = "BTN_Clear";
+            this.BTN_Clear.Size = new System.Drawing.Size(80, 38);
+            this.BTN_Clear.TabIndex = 7;
+            this.BTN_Clear.Text = "Clear";
+            this.BTN_Clear.UseVisualStyleBackColor = false;
+            this.BTN_Clear.Click += new System.EventHandler(this.BTN_Clear_Click);
+            // 
             // LV_Search
             // 
             this.LV_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -283,6 +283,7 @@
             this.LV_Search.Size = new System.Drawing.Size(620, 605);
             this.LV_Search.TabIndex = 15;
             this.LV_Search.UseCompatibleStateImageBehavior = false;
+            this.LV_Search.View = System.Windows.Forms.View.List;
             // 
             // PB_Preview
             // 

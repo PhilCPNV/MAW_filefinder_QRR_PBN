@@ -11,7 +11,7 @@ namespace TurboFinder
 {
     class Search
     {
-        public List<string> Searching(string Folder, string SearchTerm)
+        public List<string> Searching(string Folder, string SearchTerm, string SearchFilter)
         {
             //Initialisze string
             List<string> files = new List<string>();
@@ -21,6 +21,9 @@ namespace TurboFinder
 
             // This method assumes that the application has discovery permissions  
             // for all folders under the specified path.
+
+
+
             IEnumerable<System.IO.FileInfo> fileList = dir.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
 
             // Search the contents of each file.  
@@ -36,9 +39,33 @@ namespace TurboFinder
             */
 
             //Create the query  
+
+            List<string> extentions = new List<string>();
+
+            switch (SearchFilter)
+            {
+                case "Extentions":
+                    if (SearchFilter.Contains("."))
+                    {
+                        extentions.Add(SearchTerm);
+                    }
+                    else
+                    {
+                        extentions.Add("." + SearchTerm);
+                    }
+                    break;
+                case "Images":
+                    extentions.Add(".png");
+                    extentions.Add(".jpg");
+                    break;
+                default:
+                    extentions.Add(".*");
+                    break;
+            }
+
             IEnumerable<System.IO.FileInfo> fileQuery =
                 from file in fileList
-                where file.Extension == ".txt"
+                where extentions.Any(file.Extension.Contains) && file.Name.Contains(SearchTerm)
                 orderby file.Name
                 select file;
 
