@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace TurboFinder
         {
             InitializeComponent();
             InitializeInterface();
+            InitializeFilters();
+            InitializeContainer();
         }
 
         private void InitializeInterface()
@@ -25,6 +28,37 @@ namespace TurboFinder
             PNL_Search.BringToFront();
         }
 
+        private void InitializeContainer()
+        {
+            RefreshContainer();
+        }
+
+        private void RefreshContainer()
+        {
+            LV_Search.Items.Clear();
+
+            /*
+            string[] files = Directory.GetFiles(CBX_Drive.Text);
+            foreach (string file in files)
+            {
+
+                string fileName = Path.GetFileName(file);
+                ListViewItem item = new ListViewItem(fileName);
+                item.Tag = file;
+                LV_Search.Items.Add(item);
+            }
+            */
+        }
+
+        private void InitializeFilters()
+        {
+            string[] filters = { "Words", "Dates", "Images", "Music", "Videos"};
+            CBX_Filter.Items.AddRange(filters);
+
+            // Select the first result by default
+            CBX_Filter.SelectedIndex = 0;
+        }
+
         private void BTN_Open_Click(object sender, EventArgs e)
         {
 
@@ -32,12 +66,30 @@ namespace TurboFinder
 
         private void BTN_Clear_Click(object sender, EventArgs e)
         {
-
+            TBX_Search.Text = null;
         }
 
         private void BTN_SearchGo_Click(object sender, EventArgs e)
         {
+            Search search = new Search();
+            // Show the dialog and get result.
 
+            List<string> Files = new List<string>();
+
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    Files = search.Searching(fbd.SelectedPath, TBX_Search.Text);
+                }
+
+                foreach (string item in Files)
+                {
+                    LV_Search.Items.Add(item);
+                }
+            }
         }
 
         private void BTN_OpenExplorer_Click(object sender, EventArgs e)
@@ -53,6 +105,11 @@ namespace TurboFinder
         private void BTN_Recent_Click(object sender, EventArgs e)
         {
             PNL_Recent.BringToFront();
+        }
+
+        private void CBX_Drive_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshContainer();
         }
     }
 }

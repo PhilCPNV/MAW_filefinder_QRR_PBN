@@ -40,19 +40,19 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PNL_Search = new System.Windows.Forms.Panel();
             this.BTN_Clear = new System.Windows.Forms.Button();
+            this.BTN_SearchGo = new System.Windows.Forms.Button();
+            this.CBX_Filter = new System.Windows.Forms.ComboBox();
+            this.TBX_Search = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.LV_Search = new System.Windows.Forms.ListView();
             this.PB_Preview = new System.Windows.Forms.PictureBox();
             this.BTN_OpenExplorer = new System.Windows.Forms.Button();
             this.BTN_Open = new System.Windows.Forms.Button();
-            this.BTN_SearchGo = new System.Windows.Forms.Button();
-            this.CBX_Filter = new System.Windows.Forms.ComboBox();
-            this.CBX_Drive = new System.Windows.Forms.ComboBox();
-            this.TBX_Search = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.TLP_MenuLeft.SuspendLayout();
             this.PNL_Recent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.PNL_Search.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Preview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,7 +143,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(686, 406);
+            this.button2.Location = new System.Drawing.Point(672, 407);
             this.button2.Margin = new System.Windows.Forms.Padding(0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(225, 47);
@@ -156,9 +156,9 @@
             this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Location = new System.Drawing.Point(0, 56);
+            this.listView1.Location = new System.Drawing.Point(-3, 56);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(642, 599);
+            this.listView1.Size = new System.Drawing.Size(620, 600);
             this.listView1.TabIndex = 18;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -170,7 +170,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(686, 484);
+            this.button1.Location = new System.Drawing.Point(672, 484);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(225, 47);
@@ -181,7 +181,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(686, 145);
+            this.pictureBox1.Location = new System.Drawing.Point(672, 145);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(225, 230);
             this.pictureBox1.TabIndex = 17;
@@ -190,16 +190,14 @@
             // PNL_Search
             // 
             this.PNL_Search.BackColor = System.Drawing.Color.White;
-            this.PNL_Search.Controls.Add(this.BTN_Clear);
+            this.PNL_Search.Controls.Add(this.BTN_SearchGo);
+            this.PNL_Search.Controls.Add(this.CBX_Filter);
+            this.PNL_Search.Controls.Add(this.TBX_Search);
+            this.PNL_Search.Controls.Add(this.panel1);
             this.PNL_Search.Controls.Add(this.LV_Search);
             this.PNL_Search.Controls.Add(this.PB_Preview);
             this.PNL_Search.Controls.Add(this.BTN_OpenExplorer);
             this.PNL_Search.Controls.Add(this.BTN_Open);
-            this.PNL_Search.Controls.Add(this.BTN_SearchGo);
-            this.PNL_Search.Controls.Add(this.CBX_Filter);
-            this.PNL_Search.Controls.Add(this.CBX_Drive);
-            this.PNL_Search.Controls.Add(this.TBX_Search);
-            this.PNL_Search.Controls.Add(this.panel1);
             this.PNL_Search.Location = new System.Drawing.Point(202, 12);
             this.PNL_Search.Name = "PNL_Search";
             this.PNL_Search.Size = new System.Drawing.Size(933, 649);
@@ -213,25 +211,76 @@
             this.BTN_Clear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
             this.BTN_Clear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.BTN_Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_Clear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_Clear.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_Clear.ForeColor = System.Drawing.Color.Black;
-            this.BTN_Clear.Location = new System.Drawing.Point(681, 8);
+            this.BTN_Clear.Location = new System.Drawing.Point(679, 8);
             this.BTN_Clear.Margin = new System.Windows.Forms.Padding(0);
             this.BTN_Clear.Name = "BTN_Clear";
-            this.BTN_Clear.Size = new System.Drawing.Size(65, 38);
+            this.BTN_Clear.Size = new System.Drawing.Size(80, 38);
             this.BTN_Clear.TabIndex = 7;
             this.BTN_Clear.Text = "Clear";
             this.BTN_Clear.UseVisualStyleBackColor = false;
             this.BTN_Clear.Click += new System.EventHandler(this.BTN_Clear_Click);
+            // 
+            // BTN_SearchGo
+            // 
+            this.BTN_SearchGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTN_SearchGo.BackColor = System.Drawing.Color.White;
+            this.BTN_SearchGo.FlatAppearance.BorderSize = 0;
+            this.BTN_SearchGo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
+            this.BTN_SearchGo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BTN_SearchGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_SearchGo.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_SearchGo.ForeColor = System.Drawing.Color.Black;
+            this.BTN_SearchGo.Location = new System.Drawing.Point(767, 8);
+            this.BTN_SearchGo.Margin = new System.Windows.Forms.Padding(0);
+            this.BTN_SearchGo.Name = "BTN_SearchGo";
+            this.BTN_SearchGo.Size = new System.Drawing.Size(153, 38);
+            this.BTN_SearchGo.TabIndex = 6;
+            this.BTN_SearchGo.Text = "Search";
+            this.BTN_SearchGo.UseVisualStyleBackColor = false;
+            this.BTN_SearchGo.Click += new System.EventHandler(this.BTN_SearchGo_Click);
+            // 
+            // CBX_Filter
+            // 
+            this.CBX_Filter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBX_Filter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBX_Filter.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CBX_Filter.FormattingEnabled = true;
+            this.CBX_Filter.Location = new System.Drawing.Point(551, 7);
+            this.CBX_Filter.Name = "CBX_Filter";
+            this.CBX_Filter.Size = new System.Drawing.Size(121, 38);
+            this.CBX_Filter.TabIndex = 5;
+            // 
+            // TBX_Search
+            // 
+            this.TBX_Search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TBX_Search.Font = new System.Drawing.Font("Source Sans Pro", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBX_Search.Location = new System.Drawing.Point(11, 7);
+            this.TBX_Search.Name = "TBX_Search";
+            this.TBX_Search.Size = new System.Drawing.Size(532, 38);
+            this.TBX_Search.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(36)))), ((int)(((byte)(71)))));
+            this.panel1.Controls.Add(this.BTN_Clear);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(933, 56);
+            this.panel1.TabIndex = 16;
             // 
             // LV_Search
             // 
             this.LV_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LV_Search.Location = new System.Drawing.Point(19, 65);
+            this.LV_Search.Location = new System.Drawing.Point(0, 51);
             this.LV_Search.Name = "LV_Search";
-            this.LV_Search.Size = new System.Drawing.Size(620, 572);
+            this.LV_Search.Size = new System.Drawing.Size(620, 605);
             this.LV_Search.TabIndex = 15;
             this.LV_Search.UseCompatibleStateImageBehavior = false;
             // 
@@ -278,72 +327,14 @@
             this.BTN_Open.UseVisualStyleBackColor = false;
             this.BTN_Open.Click += new System.EventHandler(this.BTN_Open_Click);
             // 
-            // BTN_SearchGo
-            // 
-            this.BTN_SearchGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTN_SearchGo.BackColor = System.Drawing.Color.White;
-            this.BTN_SearchGo.FlatAppearance.BorderSize = 0;
-            this.BTN_SearchGo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
-            this.BTN_SearchGo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.BTN_SearchGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_SearchGo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_SearchGo.ForeColor = System.Drawing.Color.Black;
-            this.BTN_SearchGo.Location = new System.Drawing.Point(761, 8);
-            this.BTN_SearchGo.Margin = new System.Windows.Forms.Padding(0);
-            this.BTN_SearchGo.Name = "BTN_SearchGo";
-            this.BTN_SearchGo.Size = new System.Drawing.Size(160, 38);
-            this.BTN_SearchGo.TabIndex = 6;
-            this.BTN_SearchGo.Text = "Search";
-            this.BTN_SearchGo.UseVisualStyleBackColor = false;
-            this.BTN_SearchGo.Click += new System.EventHandler(this.BTN_SearchGo_Click);
-            // 
-            // CBX_Filter
-            // 
-            this.CBX_Filter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CBX_Filter.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CBX_Filter.FormattingEnabled = true;
-            this.CBX_Filter.Location = new System.Drawing.Point(551, 7);
-            this.CBX_Filter.Name = "CBX_Filter";
-            this.CBX_Filter.Size = new System.Drawing.Size(121, 39);
-            this.CBX_Filter.TabIndex = 5;
-            // 
-            // CBX_Drive
-            // 
-            this.CBX_Drive.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CBX_Drive.FormattingEnabled = true;
-            this.CBX_Drive.Location = new System.Drawing.Point(14, 7);
-            this.CBX_Drive.Name = "CBX_Drive";
-            this.CBX_Drive.Size = new System.Drawing.Size(79, 39);
-            this.CBX_Drive.TabIndex = 4;
-            // 
-            // TBX_Search
-            // 
-            this.TBX_Search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBX_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBX_Search.Location = new System.Drawing.Point(104, 7);
-            this.TBX_Search.Name = "TBX_Search";
-            this.TBX_Search.Size = new System.Drawing.Size(441, 39);
-            this.TBX_Search.TabIndex = 3;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(36)))), ((int)(((byte)(71)))));
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(933, 56);
-            this.panel1.TabIndex = 16;
-            // 
             // FRM_MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1062, 649);
-            this.Controls.Add(this.PNL_Recent);
             this.Controls.Add(this.PNL_Search);
+            this.Controls.Add(this.PNL_Recent);
             this.Controls.Add(this.TLP_MenuLeft);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1000, 500);
@@ -354,6 +345,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.PNL_Search.ResumeLayout(false);
             this.PNL_Search.PerformLayout();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_Preview)).EndInit();
             this.ResumeLayout(false);
 
@@ -369,7 +361,6 @@
         private System.Windows.Forms.Button BTN_Clear;
         private System.Windows.Forms.Button BTN_SearchGo;
         private System.Windows.Forms.ComboBox CBX_Filter;
-        private System.Windows.Forms.ComboBox CBX_Drive;
         private System.Windows.Forms.TextBox TBX_Search;
         private System.Windows.Forms.ListView LV_Search;
         private System.Windows.Forms.PictureBox PB_Preview;
