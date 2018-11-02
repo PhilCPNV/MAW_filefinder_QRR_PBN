@@ -6,6 +6,7 @@ using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TurboFinder
 {
@@ -22,9 +23,17 @@ namespace TurboFinder
             // This method assumes that the application has discovery permissions  
             // for all folders under the specified path.
 
+            IEnumerable<System.IO.FileInfo> fileList;
 
-
-            IEnumerable<System.IO.FileInfo> fileList = dir.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+            try
+            {
+                fileList = dir.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Vous ne possèdez pas les droits néssésaire pour certains fichier ou dossier.");
+                return null;
+            }
 
             // Search the contents of each file.  
             // A regular expression created with the RegEx class  
@@ -45,7 +54,7 @@ namespace TurboFinder
             switch (SearchFilter)
             {
                 case "Extentions":
-                    if (SearchFilter.Contains("."))
+                    if (SearchTerm.Contains("."))
                     {
                         extentions.Add(SearchTerm);
                     }
@@ -55,34 +64,46 @@ namespace TurboFinder
                     }
                     break;
                 case "Images":
-                    extentions.Add(".png");
-                    extentions.Add(".jpg");
+                    extentions.Add(".png, .jpg, .gif");
+                    break;
+                case "Videos":
+                    extentions.Add(".mp4, .avi, .wmv, .mov, .flv");
+                    break;
+                case "Music":
+                    extentions.Add(".aac, .mp3, .ogg, .wav, .flac");
                     break;
                 default:
-                    extentions.Add(".*");
                     break;
             }
 
-            IEnumerable<System.IO.FileInfo> fileQuery =
+            if (SearchFilter == "Words" || SearchFilter == "Dates")
+            {
+                IEnumerable<System.IO.FileInfo> fileQuery =
+                from file in fileList
+                where file.Name.Contains(SearchTerm)
+                orderby file.Name
+                select file;
+
+                // Execute the query
+                foreach (System.IO.FileInfo fi in fileQuery)
+                {
+                    files.Add(fi.FullName);
+                }
+            }
+            else
+            {
+                IEnumerable<System.IO.FileInfo> fileQuery =
                 from file in fileList
                 where extentions.Any(file.Extension.Contains) && file.Name.Contains(SearchTerm)
                 orderby file.Name
                 select file;
 
-
-            //Execute the query. This might write out a lot of files!  
-            foreach (System.IO.FileInfo fi in fileQuery)
-            {
-                files.Add(fi.FullName);
+                // Execute the query
+                foreach (System.IO.FileInfo fi in fileQuery)
+                {
+                    files.Add(fi.FullName);
+                }
             }
-
-            /* Execute the query.  
-            foreach (string filename in queryMatchingFiles)
-            {
-                files.Add(filename);
-            }*/
-
-            // Return the array
 
             return files;
         }
