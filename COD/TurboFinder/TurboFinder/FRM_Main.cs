@@ -68,12 +68,12 @@ namespace TurboFinder
         private void BTN_Clear_Click(object sender, EventArgs e)
         {
             TBX_Search.Text = null;
+            LV_Search.Items.Clear();
         }
 
         private void BTN_SearchGo_Click(object sender, EventArgs e)
         {
             Search search = new Search();
-            // Show the dialog and get result.
 
             List<string> Files = new List<string>();
 
@@ -83,12 +83,13 @@ namespace TurboFinder
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    Files = search.Searching(fbd.SelectedPath, TBX_Search.Text, CBX_Filter.Text);
-                }
-
-                foreach (string item in Files)
-                {
-                    LV_Search.Items.Add(item);
+                    if ((Files = search.Searching(fbd.SelectedPath, TBX_Search.Text, CBX_Filter.Text)) != null)
+                    {
+                        foreach (string item in Files)
+                        {
+                            LV_Search.Items.Add(item);
+                        }
+                    }
                 }
             }
         }
