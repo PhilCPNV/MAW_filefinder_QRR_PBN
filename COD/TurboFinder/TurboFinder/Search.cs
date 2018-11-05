@@ -51,6 +51,10 @@ namespace TurboFinder
 
             List<string> extentions = new List<string>();
 
+            string[] extensionsIMG = { ".png", ".jpg", ".gif" };
+            string[] extensionsVDO = { ".mp4, .avi, .wmv, .mov, .flv" };
+            string[] extensionsMSC = { ".aac, .mp3, .ogg, .wav, .flac" };
+
             switch (SearchFilter)
             {
                 case "Extentions":
@@ -64,13 +68,13 @@ namespace TurboFinder
                     }
                     break;
                 case "Images":
-                    extentions.Add(".png, .jpg, .gif");
+                    extentions.AddRange(extensionsIMG);
                     break;
                 case "Videos":
-                    extentions.Add(".mp4, .avi, .wmv, .mov, .flv");
+                    extentions.AddRange(extensionsVDO);
                     break;
                 case "Music":
-                    extentions.Add(".aac, .mp3, .ogg, .wav, .flac");
+                    extentions.AddRange(extensionsMSC);
                     break;
                 default:
                     break;

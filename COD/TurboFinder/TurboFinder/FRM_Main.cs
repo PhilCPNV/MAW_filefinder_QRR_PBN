@@ -125,5 +125,31 @@ namespace TurboFinder
         {
             RefreshContainer();
         }
+
+        private void LV_Search_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void LV_Search_SelectedIndexChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void LV_Search_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            // Check if there is at least 1 item selected due to the unwanted effects of the IndexChange trigger twice!! (once while selecting the item and once on its deselection)
+            if (LV_Search.SelectedItems.Count > 0)
+            {
+                // In some rare scenarios the files is not readable (can be a hidden file with a known extension)
+                try
+                {
+                    PB_Preview.Image = Image.FromFile(LV_Search.SelectedItems[0].Text);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
     }
 }

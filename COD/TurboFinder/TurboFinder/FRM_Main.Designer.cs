@@ -279,18 +279,23 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LV_Search.Location = new System.Drawing.Point(0, 51);
+            this.LV_Search.MultiSelect = false;
             this.LV_Search.Name = "LV_Search";
             this.LV_Search.Size = new System.Drawing.Size(620, 605);
             this.LV_Search.TabIndex = 15;
             this.LV_Search.UseCompatibleStateImageBehavior = false;
             this.LV_Search.View = System.Windows.Forms.View.List;
+            this.LV_Search.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.LV_Search_ItemSelectionChanged);
+            this.LV_Search.SelectedIndexChanged += new System.EventHandler(this.LV_Search_SelectedIndexChanged);
             // 
             // PB_Preview
             // 
             this.PB_Preview.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.PB_Preview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.PB_Preview.Location = new System.Drawing.Point(671, 167);
             this.PB_Preview.Name = "PB_Preview";
             this.PB_Preview.Size = new System.Drawing.Size(231, 194);
+            this.PB_Preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PB_Preview.TabIndex = 14;
             this.PB_Preview.TabStop = false;
             // 
