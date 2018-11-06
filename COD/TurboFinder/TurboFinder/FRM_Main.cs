@@ -62,7 +62,19 @@ namespace TurboFinder
 
         private void BTN_Open_Click(object sender, EventArgs e)
         {
-
+            if (File.Exists(LV_Search.SelectedItems[0].Text))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    Arguments = LV_Search.SelectedItems[0].Text,
+                    FileName = "explorer.exe"
+                };
+                Process.Start(startInfo);
+            }
+            else
+            {
+                MessageBox.Show(string.Format("{0} Directory does not exist!", LV_Search.SelectedItems[0].Text));
+            }
         }
 
         private void BTN_Clear_Click(object sender, EventArgs e)
@@ -100,7 +112,7 @@ namespace TurboFinder
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    Arguments = LV_Search.SelectedItems[0].Text,
+                    Arguments = Path.GetDirectoryName(LV_Search.SelectedItems[0].Text),
                     FileName = "explorer.exe"
                 };
                 Process.Start(startInfo);
@@ -126,28 +138,28 @@ namespace TurboFinder
             RefreshContainer();
         }
 
-        private void LV_Search_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void LV_Search_SelectedIndexChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-
-        }
-
         private void LV_Search_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             // Check if there is at least 1 item selected due to the unwanted effects of the IndexChange trigger twice!! (once while selecting the item and once on its deselection)
             if (LV_Search.SelectedItems.Count > 0)
             {
-                // In some rare scenarios the files is not readable (can be a hidden file with a known extension)
-                try
+                string ext = Path.GetExtension(LV_Search.SelectedItems[0].Text);
+                // Check if the SelectedItem is an image (can be displayed)
+                if (ext == ".png" || ext == ".jpg" || ext == ".gif")
                 {
-                    PB_Preview.Image = Image.FromFile(LV_Search.SelectedItems[0].Text);
+                    // In some rare scenarios the files is not readable (can be a hidden file with a known extension!)
+                    try
+                    {
+                        PB_Preview.Image = Image.FromFile(LV_Search.SelectedItems[0].Text); // Display image to the user
+                    }
+                    catch (Exception)
+                    {
+                        PB_Preview.Image = TurboFinder.Properties.Resources.Img_Error; // Show the corrupted image icon to the user
+                    }
                 }
-                catch (Exception)
+                else
                 {
-
+                    PB_Preview.Image = TurboFinder.Properties.Resources.Img_File; // Show a default placeholder icon to the user
                 }
             }
         }

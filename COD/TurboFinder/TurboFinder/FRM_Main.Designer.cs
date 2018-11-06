@@ -286,7 +286,6 @@
             this.LV_Search.UseCompatibleStateImageBehavior = false;
             this.LV_Search.View = System.Windows.Forms.View.List;
             this.LV_Search.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.LV_Search_ItemSelectionChanged);
-            this.LV_Search.SelectedIndexChanged += new System.EventHandler(this.LV_Search_SelectedIndexChanged);
             // 
             // PB_Preview
             // 
@@ -294,7 +293,7 @@
             this.PB_Preview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.PB_Preview.Location = new System.Drawing.Point(671, 167);
             this.PB_Preview.Name = "PB_Preview";
-            this.PB_Preview.Size = new System.Drawing.Size(231, 194);
+            this.PB_Preview.Size = new System.Drawing.Size(231, 195);
             this.PB_Preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PB_Preview.TabIndex = 14;
             this.PB_Preview.TabStop = false;
