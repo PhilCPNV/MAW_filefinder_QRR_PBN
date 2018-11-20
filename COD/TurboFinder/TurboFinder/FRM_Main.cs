@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,10 +17,25 @@ namespace TurboFinder
     {
         public FRM_MainForm()
         {
+            // Splash Screen initializer
+            Thread thread = new Thread(new ThreadStart(InitializeSplashScreen));
+            thread.Start();
+            Thread.Sleep(2000);
+
+            // Main initializer
             InitializeComponent();
+
+            // Custom initializers
             InitializeInterface();
             InitializeFilters();
             InitializeContainer();
+
+            thread.Abort();
+        }
+
+        public void InitializeSplashScreen()
+        {
+            Application.Run(new FRM_Splash());
         }
 
         private void InitializeInterface()
@@ -37,18 +53,6 @@ namespace TurboFinder
         private void RefreshContainer()
         {
             LV_Search.Items.Clear();
-
-            /*
-            string[] files = Directory.GetFiles(CBX_Drive.Text);
-            foreach (string file in files)
-            {
-
-                string fileName = Path.GetFileName(file);
-                ListViewItem item = new ListViewItem(fileName);
-                item.Tag = file;
-                LV_Search.Items.Add(item);
-            }
-            */
         }
 
         private void InitializeFilters()
@@ -81,6 +85,10 @@ namespace TurboFinder
         {
             TBX_Search.Text = null;
             LV_Search.Items.Clear();
+            PB_Preview.Image = null; // Clear "Preview" image
+
+
+            
         }
 
         private void BTN_SearchGo_Click(object sender, EventArgs e)
