@@ -39,6 +39,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PNL_Search = new System.Windows.Forms.Panel();
+            this.CPB_loading = new CircularProgressBar.CircularProgressBar();
             this.BTN_SearchGo = new System.Windows.Forms.Button();
             this.CBX_Filter = new System.Windows.Forms.ComboBox();
             this.TBX_Search = new System.Windows.Forms.TextBox();
@@ -190,6 +191,7 @@
             // PNL_Search
             // 
             this.PNL_Search.BackColor = System.Drawing.Color.White;
+            this.PNL_Search.Controls.Add(this.CPB_loading);
             this.PNL_Search.Controls.Add(this.BTN_SearchGo);
             this.PNL_Search.Controls.Add(this.CBX_Filter);
             this.PNL_Search.Controls.Add(this.TBX_Search);
@@ -202,6 +204,41 @@
             this.PNL_Search.Name = "PNL_Search";
             this.PNL_Search.Size = new System.Drawing.Size(933, 649);
             this.PNL_Search.TabIndex = 1;
+            // 
+            // CPB_loading
+            // 
+            this.CPB_loading.AnimationFunction = ((WinFormAnimation.AnimationFunctions.Function)(resources.GetObject("CPB_loading.AnimationFunction")));
+            this.CPB_loading.AnimationSpeed = 1200;
+            this.CPB_loading.BackColor = System.Drawing.Color.Transparent;
+            this.CPB_loading.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CPB_loading.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.CPB_loading.InnerColor = System.Drawing.Color.Transparent;
+            this.CPB_loading.InnerMargin = 0;
+            this.CPB_loading.InnerWidth = 0;
+            this.CPB_loading.Location = new System.Drawing.Point(222, 258);
+            this.CPB_loading.Margin = new System.Windows.Forms.Padding(0);
+            this.CPB_loading.MarqueeAnimationSpeed = 2000;
+            this.CPB_loading.Name = "CPB_loading";
+            this.CPB_loading.OuterColor = System.Drawing.Color.DimGray;
+            this.CPB_loading.OuterMargin = -30;
+            this.CPB_loading.OuterWidth = 30;
+            this.CPB_loading.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(36)))), ((int)(((byte)(71)))));
+            this.CPB_loading.ProgressWidth = 25;
+            this.CPB_loading.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 36F);
+            this.CPB_loading.Size = new System.Drawing.Size(200, 200);
+            this.CPB_loading.StartAngle = 83;
+            this.CPB_loading.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.CPB_loading.SubscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.CPB_loading.SubscriptMargin = new System.Windows.Forms.Padding(10, -35, 0, 0);
+            this.CPB_loading.SubscriptText = "";
+            this.CPB_loading.SuperscriptColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
+            this.CPB_loading.SuperscriptMargin = new System.Windows.Forms.Padding(10, 35, 0, 0);
+            this.CPB_loading.SuperscriptText = "";
+            this.CPB_loading.TabIndex = 17;
+            this.CPB_loading.Text = "Loading...";
+            this.CPB_loading.TextMargin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.CPB_loading.Value = 60;
+            this.CPB_loading.Visible = false;
             // 
             // BTN_SearchGo
             // 
@@ -377,6 +414,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
+        private CircularProgressBar.CircularProgressBar CPB_loading;
     }
 }
 
