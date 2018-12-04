@@ -7,9 +7,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace TurboFinder
 {
@@ -17,25 +17,10 @@ namespace TurboFinder
     {
         public FRM_MainForm()
         {
-            // Splash Screen initializer
-            Thread thread = new Thread(new ThreadStart(InitializeSplashScreen));
-            thread.Start();
-            Thread.Sleep(2000);
-
-            // Main initializer
             InitializeComponent();
-
-            // Custom initializers
             InitializeInterface();
             InitializeFilters();
             InitializeContainer();
-
-            thread.Abort();
-        }
-
-        public void InitializeSplashScreen()
-        {
-            Application.Run(new FRM_Splash());
         }
 
         private void InitializeInterface()
@@ -53,6 +38,18 @@ namespace TurboFinder
         private void RefreshContainer()
         {
             LV_Search.Items.Clear();
+
+            /*
+            string[] files = Directory.GetFiles(CBX_Drive.Text);
+            foreach (string file in files)
+            {
+
+                string fileName = Path.GetFileName(file);
+                ListViewItem item = new ListViewItem(fileName);
+                item.Tag = file;
+                LV_Search.Items.Add(item);
+            }
+            */
         }
 
         private void InitializeFilters()
@@ -85,10 +82,6 @@ namespace TurboFinder
         {
             TBX_Search.Text = null;
             LV_Search.Items.Clear();
-            PB_Preview.Image = null; // Clear "Preview" image
-
-
-            
         }
 
         private void BTN_SearchGo_Click(object sender, EventArgs e)
@@ -109,9 +102,36 @@ namespace TurboFinder
                         {
                             LV_Search.Items.Add(item);
                         }
-                    }
+                    }   
                 }
             }
+            // Write the result of the research in the log file 
+
+            //récupère le chemin du log
+            //TurboFinder.Properties.Resources.log
+            String Date = System.DateTime.Now.ToString("dddd dd MMMM yyyy HH:mm:ss mm");
+            string Line = "# Recherche du : " +  Date;
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\log.txt", true))
+            {
+                file.WriteLine(Line);
+            }
+            // read every line of the listView, take one item and all subitems, write it on the logfile, and repeat.
+            int i = 0;
+            foreach (ListViewItem item in this.LV_Search.Items)
+            {
+
+
+                //string Text = LV_Search.ReadToEnd().Spilt('');
+                string LvLine = LV_Search.Items[i].Text;                
+               
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:/log.txt", true))
+                {
+                    file.WriteLine(LvLine);
+                }
+                  i++;
+            }
+
         }
 
         private void BTN_OpenExplorer_Click(object sender, EventArgs e)
@@ -134,11 +154,24 @@ namespace TurboFinder
         private void BTN_Search_Click(object sender, EventArgs e)
         {
             PNL_Search.BringToFront();
+            LV_log.Clear();
         }
 
         private void BTN_Recent_Click(object sender, EventArgs e)
         {
             PNL_Recent.BringToFront();
+
+            // Create LogHandler object
+            LogHandler LH = new LogHandler();
+
+            foreach (string line in LH.ReadLog(@"c:\log.txt"))
+            {
+                ListViewItem item = new ListViewItem();
+
+                item.Text = line;
+
+                LV_log.Items.Add(item);
+            }
         }
 
         private void CBX_Drive_SelectedIndexChanged(object sender, EventArgs e)
@@ -169,6 +202,48 @@ namespace TurboFinder
                 {
                     PB_Preview.Image = TurboFinder.Properties.Resources.Img_File; // Show a default placeholder icon to the user
                 }
+            }
+        }
+
+        private void BTNL_open_Click(object sender, EventArgs e)
+        {
+            // display an error message if no file is selected
+            if (LV_log.SelectedItems.Count <= 0)
+            {
+                // Initializes the variables to pass to the MessageBox.Show method.
+
+                string message = "Veuillez sélectionner un fichier avant de clicker sur les boutons";
+                string caption = "Erreure : aucun fichier sélectionné";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+
+                // Displays the MessageBox.
+                result = MessageBox.Show(message, caption, buttons);
+
+            }
+            else
+            {
+                String link = LV_log.SelectedItems[0].Text;
+                Process.Start("explorer.exe", @link);
+            }
+
+            // IL FAUT FAIRE UNE FONCTION ICI POUR L'AFFICHAGE DES MESSAGES D'ERREURE
+        }
+
+        private void BTN_ExplorerOpen_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(LV_log.SelectedItems[0].Text))
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    Arguments = Path.GetDirectoryName(LV_log.SelectedItems[0].Text),
+                    FileName = "explorer.exe"
+                };
+                Process.Start(startInfo);
+            }
+            else
+            {
+                MessageBox.Show(string.Format("{0} Directory does not exist!", Path.GetDirectoryName(LV_log.SelectedItems[0].Text)));
             }
         }
     }

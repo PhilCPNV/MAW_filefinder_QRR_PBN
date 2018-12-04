@@ -80,23 +80,19 @@ namespace TurboFinder
                     break;
             }
 
-            if (SearchFilter == "Words")
+            if (SearchFilter == "Words" || SearchFilter == "Dates")
             {
                 IEnumerable<System.IO.FileInfo> fileQuery =
                 from file in fileList
                 where file.Name.Contains(SearchTerm)
                 orderby file.Name
                 select file;
-                files = AddFiles(fileQuery);
-            }
-            else if (SearchFilter == "Dates")
-            {
-                IEnumerable<System.IO.FileInfo> fileQuery =
-                from file in fileList
-                where file.LastWriteTime.Month.ToString() == SearchTerm || file.LastWriteTime.Day.ToString() == SearchTerm || file.LastWriteTime.Year.ToString() == SearchTerm
-                orderby file.Name
-                select file;
-                files = AddFiles(fileQuery);
+
+                // Execute the query
+                foreach (System.IO.FileInfo fi in fileQuery)
+                {
+                    files.Add(fi.FullName);
+                }
             }
             else
             {
@@ -105,28 +101,19 @@ namespace TurboFinder
                 where extentions.Any(file.Extension.Contains) && file.Name.Contains(SearchTerm)
                 orderby file.Name
                 select file;
-                files = AddFiles(fileQuery);
+
+                // Execute the query
+                foreach (System.IO.FileInfo fi in fileQuery)
+                {
+                    files.Add(fi.FullName);
+                }
             }
 
             return files;
         }
 
-        private List<string> AddFiles(IEnumerable<FileInfo> fileQuery)
-        {
-            //Initialisze string
-            List<string> files = new List<string>();
-
-            // Execute the query
-            foreach (System.IO.FileInfo fi in fileQuery)
-            {
-                files.Add(fi.FullName);
-            }
-
-            return files;
-        }
-
-    // Read the contents of the file.  
-    static string GetFileText(string name)
+        // Read the contents of the file.  
+        static string GetFileText(string name)
         {
             string fileContents = String.Empty;
 
