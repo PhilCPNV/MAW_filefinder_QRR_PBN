@@ -3,16 +3,10 @@
 
 # TurboFinder
 
-**A simple and fast Linux, Nginx, Php and MariaDB web stack.**
-
-</div>
-
-<div align="center">
-
-# TurboFinder
-</div>
-
 **A new file finder made in C#**
+
+</div>
+
 
 ## Description 
 
