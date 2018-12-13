@@ -122,17 +122,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FRM_Main.cs">
+    <Compile Include="..\..\..\..\..\Local Backup\FRM_Main.cs">
       <SubType>Form</SubType>
+      <Link>FRM_Main.cs</Link>
     </Compile>
-    <Compile Include="FRM_Main.Designer.cs">
+    <Compile Include="..\..\..\..\..\Local Backup\FRM_Main.Designer.cs">
       <DependentUpon>FRM_Main.cs</DependentUpon>
+      <Link>FRM_Main.Designer.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search.cs" />
-    <EmbeddedResource Include="FRM_Main.resx">
+    <EmbeddedResource Include="..\..\..\..\..\Local Backup\FRM_Main.resx">
       <DependentUpon>FRM_Main.cs</DependentUpon>
+      <Link>FRM_Main.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
