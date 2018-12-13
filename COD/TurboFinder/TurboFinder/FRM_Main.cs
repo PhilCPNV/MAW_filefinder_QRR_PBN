@@ -17,11 +17,6 @@ namespace TurboFinder
     {
         public FRM_MainForm()
         {
-            // Splash Screen initializer
-            Thread thread = new Thread(new ThreadStart(InitializeSplashScreen));
-            thread.Start();
-            Thread.Sleep(2000);
-
             // Main initializer
             InitializeComponent();
 
@@ -29,13 +24,6 @@ namespace TurboFinder
             InitializeInterface();
             InitializeFilters();
             InitializeContainer();
-
-            thread.Abort();
-        }
-
-        public void InitializeSplashScreen()
-        {
-            Application.Run(new FRM_Splash());
         }
 
         private void InitializeInterface()
@@ -53,11 +41,12 @@ namespace TurboFinder
         private void RefreshContainer()
         {
             LV_Search.Items.Clear();
+            LBL_Counter.Text = "";
         }
 
         private void InitializeFilters()
         {
-            string[] filters = { "Words", "Dates", "Images", "Music", "Videos", "Extentions"};
+            string[] filters = { "Standard", "Dates", "Images", "Music", "Videos", "XLS", "DOC", "PDF", "Extentions"};
             CBX_Filter.Items.AddRange(filters);
 
             // Select the first result by default
@@ -66,68 +55,118 @@ namespace TurboFinder
 
         private void BTN_Open_Click(object sender, EventArgs e)
         {
-            if (File.Exists(LV_Search.SelectedItems[0].Text))
+            if (LV_Search.SelectedItems.Count > 0)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                if (File.Exists(LV_Search.SelectedItems[0].Text))
                 {
-                    Arguments = LV_Search.SelectedItems[0].Text,
-                    FileName = "explorer.exe"
-                };
-                Process.Start(startInfo);
-            }
-            else
-            {
-                MessageBox.Show(string.Format("{0} Directory does not exist!", LV_Search.SelectedItems[0].Text));
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        Arguments = LV_Search.SelectedItems[0].Text,
+                        FileName = "explorer.exe"
+                    };
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("{0} Directory does not exist!", LV_Search.SelectedItems[0].Text));
+                }
             }
         }
 
         private void BTN_Clear_Click(object sender, EventArgs e)
         {
             TBX_Search.Text = null;
-            LV_Search.Items.Clear();
             PB_Preview.Image = null; // Clear "Preview" image
-
-
-            
+            RefreshContainer();
         }
 
-        private void BTN_SearchGo_Click(object sender, EventArgs e)
+        private async void BTN_SearchGo_Click(object sender, EventArgs e)
         {
-            Search search = new Search();
-
-            List<string> Files = new List<string>();
-
-            using (var fbd = new FolderBrowserDialog())
+            try
             {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                List<string> Files;
+                using (var fbd = new FolderBrowserDialog())
                 {
-                    if ((Files = search.Searching(fbd.SelectedPath, TBX_Search.Text, CBX_Filter.Text)) != null)
+                    // Show dialog box
+                    DialogResult result = fbd.ShowDialog();
+
+                    // Check for confirmation and a correct Path
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
+                        // Start loading animation
+                        CPB_loading.Visible = true;
+
+                        // Saves all the values to variables (could be replaced)
+                        string Path = fbd.SelectedPath;
+                        string SearchText = TBX_Search.Text;
+                        string Filter = CBX_Filter.Text;
+
+                        // Start gathering all specific files (background task) and saving the results into "Files"
+                        Files = await Task.Run(() => GetFilesList(Path, SearchText, Filter));
+
+                        // Stop loading animation
+                        CPB_loading.Visible = false;
+
+                        // Load the result ListView with the found files
                         foreach (string item in Files)
                         {
                             LV_Search.Items.Add(item);
                         }
+
+                        // Display the number of files found to the UI
+                        LBL_Counter.Text = "Files Found : " + LV_Search.Items.Count.ToString();
+
+                        // Display Notification
+                        NTF_ico.BalloonTipIcon = ToolTipIcon.Info;
+                        if (LV_Search.Items.Count > 0)
+                        {
+                            NTF_ico.BalloonTipText = "Successfully found " + LV_Search.Items.Count.ToString() + " files";
+                        }
+                        else
+                        {
+                            NTF_ico.BalloonTipText = "No files found";
+                        }
+                        NTF_ico.BalloonTipTitle = "Search Finished";
+                        NTF_ico.ShowBalloonTip(1000);
                     }
                 }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Impossible d'executer la recherche car certains dossiers require des droits systèmes");
+            }
+        }
+
+        private List<string> GetFilesList(string Path, string SearchText, string Filter)
+        {
+            // Initialize objects
+            Search search = new Search();
+            List<string> Files;
+
+            // Search all files for the specific atributes
+            Files = search.Searching(Path, SearchText, Filter);
+            
+            // Return the result of the research
+            return Files;
         }
 
         private void BTN_OpenExplorer_Click(object sender, EventArgs e)
         {
-            if (File.Exists(LV_Search.SelectedItems[0].Text))
+            if (LV_Search.SelectedItems.Count > 0)
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                if (File.Exists(LV_Search.SelectedItems[0].Text))
                 {
-                    Arguments = Path.GetDirectoryName(LV_Search.SelectedItems[0].Text),
-                    FileName = "explorer.exe"
-                };
-                Process.Start(startInfo);
-            }
-            else
-            {
-                MessageBox.Show(string.Format("{0} Directory does not exist!", LV_Search.SelectedItems[0].Text));
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        Arguments = Path.GetDirectoryName(LV_Search.SelectedItems[0].Text),
+                        FileName = "explorer.exe"
+                    };
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("{0} Directory does not exist!", LV_Search.SelectedItems[0].Text));
+                }
             }
         }
 
@@ -139,11 +178,6 @@ namespace TurboFinder
         private void BTN_Recent_Click(object sender, EventArgs e)
         {
             PNL_Recent.BringToFront();
-        }
-
-        private void CBX_Drive_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RefreshContainer();
         }
 
         private void LV_Search_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)

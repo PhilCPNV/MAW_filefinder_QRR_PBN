@@ -7,6 +7,10 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace TurboFinder
 {
@@ -80,7 +84,7 @@ namespace TurboFinder
                     break;
             }
 
-            if (SearchFilter == "Words")
+            if (SearchFilter == "Standard")
             {
                 IEnumerable<System.IO.FileInfo> fileQuery =
                 from file in fileList
@@ -94,6 +98,39 @@ namespace TurboFinder
                 IEnumerable<System.IO.FileInfo> fileQuery =
                 from file in fileList
                 where file.LastWriteTime.Month.ToString() == SearchTerm || file.LastWriteTime.Day.ToString() == SearchTerm || file.LastWriteTime.Year.ToString() == SearchTerm
+                orderby file.Name
+                select file;
+                files = AddFiles(fileQuery);
+            }
+            else if (SearchFilter == "PDF")
+            {
+                IEnumerable<System.IO.FileInfo> fileQuery =
+                from file in fileList
+                where file.Extension == ".pdf"
+                let fileText = GetFileText(file.FullName)
+                where fileText.Contains(SearchTerm)
+                orderby file.Name
+                select file;
+                files = AddFiles(fileQuery);
+            }
+            else if (SearchFilter == "DOC")
+            {
+                IEnumerable<System.IO.FileInfo> fileQuery =
+                from file in fileList
+                where file.Extension == ".docx" || file.Extension == ".doc"
+                let fileText = GetWordText(file.FullName)
+                where fileText.Contains(SearchTerm)
+                orderby file.Name
+                select file;
+                files = AddFiles(fileQuery);
+            }
+            else if (SearchFilter == "XLS")
+            {
+                IEnumerable<System.IO.FileInfo> fileQuery =
+                from file in fileList
+                where file.Extension == ".xlsx" || file.Extension == ".xls"
+                let fileText = GetExcelText(file.FullName)
+                where fileText.Contains(SearchTerm)
                 orderby file.Name
                 select file;
                 files = AddFiles(fileQuery);
@@ -125,8 +162,8 @@ namespace TurboFinder
             return files;
         }
 
-    // Read the contents of the file.  
-    static string GetFileText(string name)
+        // Read the contents of the file.  
+        static string GetFileText(string name)
         {
             string fileContents = String.Empty;
 
@@ -136,7 +173,64 @@ namespace TurboFinder
             {
                 fileContents = System.IO.File.ReadAllText(name);
             }
+            MessageBox.Show(fileContents);
             return fileContents;
+        }
+
+        static string GetWordText(string filename)
+        {
+            try
+            {
+                Stream stream = File.Open(filename, FileMode.Open);
+                WordprocessingDocument wrdprodoc = WordprocessingDocument.Open(stream, true);
+                Body body = wrdprodoc.MainDocumentPart.Document.Body;
+                string content = body.InnerText;
+                return content;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
+        static string GetExcelText(string filename)
+        {
+            string content = "";
+
+            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(fs, false))
+                {
+                    WorkbookPart workbookPart = doc.WorkbookPart;
+                    SharedStringTablePart sstpart = workbookPart.GetPartsOfType<SharedStringTablePart>().First();
+                    SharedStringTable sst = sstpart.SharedStringTable;
+
+                    WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
+                    Worksheet sheet = worksheetPart.Worksheet;
+
+                    var cells = sheet.Descendants<Cell>();
+                    var rows = sheet.Descendants<Row>();
+
+                    Console.WriteLine("Row count = {0}", rows.LongCount());
+                    Console.WriteLine("Cell count = {0}", cells.LongCount());
+
+                    foreach (Cell cell in cells)
+                    {
+                        if ((cell.DataType != null) && (cell.DataType == CellValues.SharedString))
+                        {
+                            int ssid = int.Parse(cell.CellValue.Text);
+                            string str = sst.ChildElements[ssid].InnerText;
+                            content = content + str;
+                        }
+                        else if (cell.CellValue != null)
+                        {
+                            content = content + cell.CellValue.Text;
+                        }
+                    }
+                }
+            }
+            MessageBox.Show(content);
+            return content;
         }
     }
 }
