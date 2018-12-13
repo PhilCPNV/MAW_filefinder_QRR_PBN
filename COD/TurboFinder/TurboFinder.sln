@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurboFinder", "TurboFinder\TurboFinder.csproj", "{E177A9D4-6A0B-4E5A-83DA-CE8324075FFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E177A9D4-6A0B-4E5A-83DA-CE8324075FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E177A9D4-6A0B-4E5A-83DA-CE8324075FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E177A9D4-6A0B-4E5A-83DA-CE8324075FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E177A9D4-6A0B-4E5A-83DA-CE8324075FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5172DEE5-B6F5-4901-8839-76009240113D}
+	EndGlobalSection
+EndGlobal
