@@ -19,20 +19,21 @@
 -	Le contenu de fichiers PDF, Word et Excel
 -	Une date précise
 
-Réalisation de ce projet durant l'apprentissage de la formation de technicien ES développement d'application
+Réalisation de ce projet durant l'apprentissage de la formation de technicien ES développement d'application. Temps à disposition ~3 mois.
 
 ## Installation du projet
 - Récuperer le dossier **Installeur** sur votre machine
-- Lancer le fichier **TurboFinder.exe**
-- Cliquer sur suivant
-- Cliquer sur suivant
-- Lancer l'application
+- Lancer le fichier **setup.exe**
+- Cliquer sur installer
+  - l'application se lance
+
+  Un raccourcis est crée sur votre bureau
 
 ## Architecture
-- COD *Contient le code source de l'application*
-- DOC *Contient tout les fichiers de documentations réalisés*
-- Resultat  *Contient les fichiers de rendu de projet*
-	- Installeur *Contient les fichiers d'installation*
+- COD &nbsp;&nbsp;&nbsp;&nbsp;*Contient le code source de l'application*
+- DOC &nbsp;&nbsp;&nbsp;&nbsp;*Contient tout les fichiers de documentations réalisés*
+- Rendu &nbsp;&nbsp;&nbsp;&nbsp;  *Contient les fichiers de rendu de projet*
+	- Installeur &nbsp;&nbsp;&nbsp;&nbsp;*Contient les fichiers d'installation*
 
 ## Version
 Le projet est en version 1.0. Aucune modification n'est prévue à ce jour
@@ -41,5 +42,5 @@ Le projet est en version 1.0. Aucune modification n'est prévue à ce jour
 Ce projet à été rendu en mi-décembre 2018
 
 ## Auteurs
-Philipe Baumann: https://github.com/PhilCPNV <br>
+Philippe Baumann: https://github.com/PhilCPNV <br>
 Quentin Rossier : https://github.com/QuentinRo/
