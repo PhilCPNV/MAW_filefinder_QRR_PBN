@@ -35,5 +35,5 @@ Le projet est en version 1.0. Aucune modification n'est prévue à se jour
 Ce projet à été rendu en version 1.0 en mi-décembre 2018
 
 ## Auteurs
-Philipe Baumann: https://github.com/PhilCPNV <br>
+Philippe Baumann: https://github.com/PhilCPNV <br>
 Quentin Rossier : https://github.com/QuentinRo/
