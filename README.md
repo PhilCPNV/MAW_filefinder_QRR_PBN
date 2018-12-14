@@ -3,7 +3,7 @@
 
 # TurboFinder
 
-**Un nouvelle application de recherche de fichier en C#**
+**Le futur de la recherche de fichier en C#**
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/PhilCPNV/MAW_filefinder_QRR_PBN/master/DOC/img/logo/lgo22.png" width="400">
